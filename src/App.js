@@ -1,42 +1,29 @@
-import './App.css';
-import Products from './Product';
-import { Component } from 'react';
+import Products from "./Component/Products";
+import Menu from "./Component/Menu";
+import { Routes, Route } from "react-router-dom";
+import Cart from "./Component/Cart";
+import NotFound from "./Component/NotFound";
 
-class App extends Component
-
-{
-
-  constructor()
-  {
-    super();
-    this.state={
-      title:'React App',
-      userInput:'User text here'
-    }
-  }
-
-  inputChange(event)
-  {
-    this.setState({userInput:event.target.value? event.target.value:'User text here'})
-  }
-
-  render(){
-    return (
+function App() {
+  return (
+    <div>
+      <Menu />
+      <center>
+        <h1>Music Store</h1>
+        <hr />
+      </center>
       <div>
-        <center> <h1>Music Store</h1>
-        <center>
-          <input placeholder='Please Enter User Search' onChange={this.inputChange.bind(this)}/>
-        </center>
-        <p>{this.state.userInput}</p>
-        </center>
-        <hr/>
-       <Products/>
+        <Routes>
+          <Route exact path="/" Component={Products} />
+          <Route path="/Products" Component={Products} />
+          <Route path="/Cart" Component={Cart} />
+          <Route path="*" Component={NotFound} />
+          <Route />
+        </Routes>
       </div>
-    )
-  }
+     
+    </div>
+  );
 }
-
-
-
 
 export default App;

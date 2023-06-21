@@ -20,7 +20,7 @@ body{
     background-color:azure;
 }
 
-.MusicItem:hover { transform: scale(1.1); }
+/* .MusicItem:hover { transform: scale(1.1); } */
 
 .item-img-top {
     width: 256px;
