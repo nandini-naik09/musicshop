@@ -1,0 +1,29 @@
+.MusicItemCart {
+    float: left;
+    background:lightgrey;
+    list-style-type: none;
+    border-radius: 5%;
+    color: black;
+    margin-left: 3%;
+    height: 380px;
+    width: 300px;
+    margin-top: 2%;
+    padding: 2px 2px;
+    border: 2px solid black;
+}
+
+item-body{
+    margin: 15px 10px;
+}
+
+body{
+    background-color:azure;
+}
+
+.item-img-top {
+    width: 256px;
+    height: 230px;
+    margin: 5px 10px;
+}
+
+

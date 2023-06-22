@@ -1,7 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+
 export default function Menu() {
+
+  const {cartProductIds} = useSelector((state)=>state.cart)
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -18,11 +23,13 @@ export default function Menu() {
                 to="/Products"
               >
                 Products
+              
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/Cart">
                 Cart
+                <sup className="cart-nnumber">{cartProductIds.length}</sup>
               </Link>
             </li>
           </ul>

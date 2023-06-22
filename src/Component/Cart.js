@@ -1,75 +1,79 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cartSlice from "../Data/cartslice";
-import axios from "axios";
+import { fetchAllProducts } from "../Data/ProductSlice";
+import "./cart.css";
 
 export default function Cart() {
-  const [StoreProducts, setStoreProducts] = useState([]);
   const dispatch = useDispatch();
-  const { removeFromCart } = cartSlice.actions;
-  const { cartProductIds } = useSelector((state) => state.cart);
+  const { removeFromCart, clearAllItems } = cartSlice.actions;
+  const state = useSelector((state) => state);
+  const { cart, products } = state;
 
   useEffect(() => {
-    getDataFromAPI();
-  }, []);
+    dispatch(fetchAllProducts("http://localhost:3005/Instruments"));
+  }, [dispatch]);
 
-  //method to get the users from API
-  const getDataFromAPI = () => {
-    axios
-      .get("http://localhost:3005/Instruments")
-      .then((result) => {
-        if (result.status === 200) {
-          setStoreProducts(result.data);
-        }
-      })
-      .catch((error) => {
-        console.log("rejected");
-        console.log(error);
-      });
-  };
-
-  const cartProductData = StoreProducts.filter((product) =>
-    cartProductIds.includes(product.id)
+  const cartProductData = products.data?.filter((product) =>
+    cart.cartProductIds.includes(product.id)
   );
 
   return (
     <div>
       <div>
-        {cartProductData.length > 0 &&
-          cartProductData.map((product, i) => (
-            <div key={product.id} className="MusicItem">
-              <div className="row">
-                <div>
-                  <img
-                    className="item-img-top"
-                    src={product.img}
-                    alt={product.name}
-                  />
+        <h3>Cart Items</h3>
+        {cartProductData.length > 0 && (
+          <div>
+            {cartProductData.map((product, i) => (
+              <div key={product.id} className="MusicItemCart">
+                <div className="row">
+                  <div>
+                    <img
+                      className="item-img-top"
+                      src={product.img}
+                      alt={product.name}
+                    />
+                  </div>
+                  <hr />
                 </div>
-                <hr />
+                <div className="item-body">
+                  <p> {product.name}</p>
+                  <button
+                    className="btn btn-secondary"
+                    type="submit"
+                    onClick={() => dispatch(removeFromCart(product.id))}
+                  >
+                    <i className="bi bi-trash-fill" />
+                    Remove from Cart
+                  </button>
+                </div>
               </div>
-              <div className="item-body">
-                <p> {product.name}</p>
+            ))}
+            <br /> <br />
+            <br /> <br />
+            <div>
+              <footer className="text-center">
                 <button
-                  type="submit"
-                  onClick={() => dispatch(removeFromCart(product.id))}
+                  className="btn btn-success"
+                  onClick={() => dispatch(clearAllItems())}
                 >
-                  Remove from Cart
+                  CHECKOUT
                 </button>
-              </div>
+              </footer>
             </div>
-          ))}
+          </div>
+        )}
       </div>
 
-      {cartProductData.length<1 &&  (
-        <div className="text-center empty-cart"> 
-        <center>
-          <br/>
-        <p>Your Cart is Empty.</p>
-        <p>You have not added any item to your cart.</p>,
-       </center>
-      </div>)}
-
+      {cartProductData.length < 1 && (
+        <div className="text-center empty-cart">
+          <center>
+            <br />
+            <p>Your Cart is Empty.</p>
+            <p>You have not added any item to your cart.</p>,
+          </center>
+        </div>
+      )}
     </div>
   );
 }
