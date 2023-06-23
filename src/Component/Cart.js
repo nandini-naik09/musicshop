@@ -2,11 +2,15 @@ import { React, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cartSlice from "../Data/cartslice";
 import { fetchAllProducts } from "../Data/ProductSlice";
+import Footer from "./Footer";
+import "@blueprintjs/core/lib/css/blueprint.css";
+import { Button } from "@blueprintjs/core";
 import "./cart.css";
+
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const { removeFromCart, clearAllItems } = cartSlice.actions;
+  const { removeFromCart } = cartSlice.actions;
   const state = useSelector((state) => state);
   const { cart, products } = state;
 
@@ -21,7 +25,10 @@ export default function Cart() {
   return (
     <div>
       <div>
-        <h3>Cart Items</h3>
+        <center>
+          <h1>Cart Items</h1>
+          <hr />
+        </center>
         {cartProductData.length > 0 && (
           <div>
             {cartProductData.map((product, i) => (
@@ -38,39 +45,42 @@ export default function Cart() {
                 </div>
                 <div className="item-body">
                   <p> {product.name}</p>
-                  <button
-                    className="btn btn-secondary"
-                    type="submit"
-                    onClick={() => dispatch(removeFromCart(product.id))}
-                  >
-                    <i className="bi bi-trash-fill" />
-                    Remove from Cart
-                  </button>
+                  <Button
+                className="btn btn-secondary"
+                type="submit"
+                onClick={() => dispatch(removeFromCart(product.id))}
+                icon="trash"
+              >
+                Remove from Cart
+              </Button>
                 </div>
               </div>
             ))}
-            <br /> <br />
-            <br /> <br />
+            <br />
             <div>
-              <footer className="text-center">
-                <button
-                  className="btn btn-success"
-                  onClick={() => dispatch(clearAllItems())}
-                >
-                  CHECKOUT
-                </button>
-              </footer>
+              <Footer />
             </div>
+
+            {/* <footer>
+            <button
+              className="btn btn-success checkbtn"
+              onClick={() => dispatch(clearAllItems())}
+            >
+              CHECKOUT
+            </button>
+          </footer> */}
           </div>
         )}
+        <div></div>
       </div>
 
       {cartProductData.length < 1 && (
         <div className="text-center empty-cart">
           <center>
             <br />
+            <img src="https://github.com/nandini-naik09/musicshop/blob/master/src/Component/basket.SVG" alt="cart"/>
             <p>Your Cart is Empty.</p>
-            <p>You have not added any item to your cart.</p>,
+            <p>You have not added any item to your cart.</p>
           </center>
         </div>
       )}

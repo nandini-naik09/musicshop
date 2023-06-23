@@ -8,10 +8,10 @@ function App() {
   return (
     <div>
       <Menu />
-      <center>
+      {/* <center>
         <h1>Music Store</h1>
         <hr />
-      </center>
+      </center> */}
       <div>
         <Routes>
           <Route exact path="/" Component={Products} />

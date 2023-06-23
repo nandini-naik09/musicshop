@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllProducts } from "../Data/ProductSlice";
 import cartSlice from "../Data/cartslice";
-import "./product.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
+import { Button } from "@blueprintjs/core";
+// import "./product.css";
+import "../index.css";
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -17,34 +20,35 @@ export default function Products() {
 
   return (
     <div>
-      <h3>Products</h3>
-      {proditems.map((item, i) => (
-        <div key={item.id} className="MusicItem">
-          <div className="row">
-            <div>
-              <img className="item-img-top" src={item.img} alt={item.name} />
-            </div>
-            <hr />
-          </div>
+      <center>
+        <h1>Products</h1>
 
-          <div className="item-body">
-            <p> {item.name}</p>
-            <p>Rs. {item.price}</p>
+        <hr />
+      </center>
+      {proditems.map((item, i) => (
+        <div key={item.id} className="card MusicItem">
+          <img src={item.img} class="card-img-top item-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">{item.name}</h5>
+            <p className="card-text">Rs.{item.price}</p>
             {!cart.cartProductIds.includes(item.id) && (
-              <button className="btn btn-primary"
+              <Button
+                className="btn btn-primary"
                 type="submit"
                 onClick={() => dispatch(addToCart(item.id))}
               >
                 Add to Cart
-              </button>
+              </Button>
             )}
             {cart.cartProductIds.includes(item.id) && (
-              <button className="btn btn-secondary"
+              <Button
+                className="btn btn-secondary"
                 type="submit"
                 onClick={() => dispatch(removeFromCart(item.id))}
+                icon="trash"
               >
                 Remove from Cart
-              </button>
+              </Button>
             )}
           </div>
         </div>
