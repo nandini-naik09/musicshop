@@ -76,9 +76,9 @@
     /* background: red; */
 }
 
-body {
+/* body {
     background-color: azure;
-}
+} */
 
 /* .MusicItem:hover { transform: scale(1.1); } */
 
@@ -92,7 +92,7 @@ body {
 .tour-price {
     /* color: var(--clr-primary-5);
     background: var(--clr-primary-10); */
-    padding: 0.25rem ;
+    padding: 0.25rem;
     border-radius: var(--radius);
 }
 
@@ -104,34 +104,34 @@ body {
     border-radius: 50%;
     background: red;
     color: white;
-  }
+}
 
 
-  .empty-cart {
-    
+.empty-cart {
+
     /* float:right; */
     background: white;
     list-style-type: none;
     border-radius: 3%;
     color: black;
-    margin-left: 35%;
-    height: 200px;
+    margin-left: 37%;
+    height: 400px;
     width: 400px;
     border: 2px solid black;
     align-self: auto;
     justify-content: center;
     display: flex;
     align-items: center;
-    
+    padding: 250px 40px;
+
 }
 
-.checkbtn
-{
+.checkbtn {
     position: relative;
-    padding:10px 30px;
+    padding: 10px 30px;
 }
 
-.nav-right{
+.nav-right {
     float: right;
 }
 
